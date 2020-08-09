@@ -48,7 +48,7 @@ const specialItems = {
       return quality < 50 ? increaseByOne(quality) : 50;
     },
   },
-  "Sulfuras, Hand of Ragnaros": {
+  "Sulfuras": {
     updateQuality: () => {
       return 80;
     },
