@@ -7,8 +7,10 @@ function Item(name, sell_in, quality) {
 Item.prototype.updateSellIn = function () {
   let updatedSellIn = this.sell_in - 1;
 
-  if (specialItems[this.name] && specialItems[this.name].updateSellIn) {
-    updatedSellIn = specialItems[this.name].updateSellIn({
+  const specialItem = getSpecialItem(this.name);
+
+  if (specialItem && specialItem.updateSellIn) {
+    updatedSellIn = specialItem.updateSellIn({
       name: this.name,
       sell_in: this.sell_in,
       quality: this.quality,
@@ -32,6 +34,14 @@ Item.prototype.updateQuality = function () {
   return this;
 };
 
+const getSpecialItem = (itemName) => {
+  const specialItem = Object.entries(specialItems).find(([name]) =>
+    itemName.startsWith(name)
+  );
+
+  return specialItem ? specialItem[1] : undefined;
+};
+
 const specialItems = {
   "Aged Brie": {
     updateQuality: ({ quality }) => {
@@ -46,7 +56,7 @@ const specialItems = {
       return sell_in;
     },
   },
-  "Backstage passes to a TAFKAL80ETC concert": {
+  "Backstage passes": {
     updateQuality: ({ quality, sell_in }) => {
       if (sell_in < 0) {
         return 0;
@@ -89,8 +99,10 @@ const decreaseByFour = sub(4);
 const calculateUpdatedQuality = ({ name, sell_in, quality }) => {
   if (quality === 0) return quality;
 
-  if (specialItems[name] && specialItems[name].updateQuality) {
-    return specialItems[name].updateQuality({ name, sell_in, quality });
+  const specialItem = getSpecialItem(name);
+
+  if (specialItem && specialItem.updateQuality) {
+    return specialItem.updateQuality({ name, sell_in, quality });
   }
 
   if (isPastSellDate(sell_in)) {

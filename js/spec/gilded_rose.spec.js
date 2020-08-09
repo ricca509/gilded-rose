@@ -72,7 +72,7 @@ describe("Gilded Rose", function () {
       });
     });
 
-    describe("Backstage passes to a TAFKAL80ETC concert", () => {
+    describe("Backstage passes", () => {
       describe("increase in Quality the older they get", () => {
         it("should increase in Quality by 2 when there are 10 days or less", () => {
           const gildedRose = inn([
@@ -111,15 +111,15 @@ describe("Gilded Rose", function () {
       });
     });
 
-    describe('Conjured', () => {
+    describe('Conjured items', () => {
       it('should degrade in Quality twice as fast as normal items', () => {
-        let gildedRose = inn([new Item("Conjured", 5, 20)]);
+        let gildedRose = inn([new Item("Conjured Mana Cake", 5, 20)]);
 
         expect(gildedRose.updateItem()[0].quality).toEqual(18);
         expect(gildedRose.updateItem()[0].quality).toEqual(16);
         expect(gildedRose.updateItem()[0].quality).toEqual(14);
 
-        gildedRose = inn([new Item("Conjured", 0, 20)]);
+        gildedRose = inn([new Item("Conjured Mana Cake", 0, 20)]);
 
         expect(gildedRose.updateItem()[0].quality).toEqual(16);
         expect(gildedRose.updateItem()[0].quality).toEqual(12);
