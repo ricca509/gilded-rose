@@ -1,0 +1,17 @@
+{
+  "name": "gilded-rose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {
+    "jest": "^26.2.2"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Riccardo Coppola <ricca509@gmail.com>",
+  "license": "ISC"
+}
