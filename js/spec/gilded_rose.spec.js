@@ -1,10 +1,17 @@
 const { inn, Item } = require('../src/gilded_rose');
 
 describe("Gilded Rose", function () {
-  describe("Quality", () => {
+  describe("updateQuality", () => {
+    it('should decrease the number of days we have to sell the item by 1', () => {
+      const gildedRose = inn([new Item("Item", 10, 20)]);
+
+      expect(gildedRose.updateQuality()[0].sell_in).toEqual(9);
+      expect(gildedRose.updateQuality()[0].sell_in).toEqual(8);
+      expect(gildedRose.updateQuality()[0].sell_in).toEqual(7);
+    });
+
     it("should degrade every day by 1", () => {
       const gildedRose = inn([new Item("Item", 5, 20)]);
-      
 
       expect(gildedRose.updateQuality()[0].quality).toEqual(19);
       expect(gildedRose.updateQuality()[0].quality).toEqual(18);
@@ -20,10 +27,12 @@ describe("Gilded Rose", function () {
     });
 
     it("should never be negative", () => {
-      const gildedRose = inn([new Item("Item", 5, 1)]);
+      let gildedRose = inn([new Item("Item", 5, 1)]);
 
       expect(gildedRose.updateQuality()[0].quality).toEqual(0);
       expect(gildedRose.updateQuality()[0].quality).toEqual(0);
+      
+      gildedRose = inn([new Item("Item", 5, -1)]);
       expect(gildedRose.updateQuality()[0].quality).toEqual(0);
     });
 
