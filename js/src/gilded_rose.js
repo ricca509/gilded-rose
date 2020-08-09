@@ -52,7 +52,7 @@ const specialItems = {
         return 0;
       }
       let updatedQuality = increaseByOne(quality);
-      
+
       if (sell_in <= 10) {
         updatedQuality = increaseByTwo(quality);
       }
@@ -62,6 +62,15 @@ const specialItems = {
       }
 
       return updatedQuality <= 50 ? updatedQuality : 50;
+    },
+  },
+  Conjured: {
+    updateQuality: ({ quality, sell_in }) => {
+      if (isPastSellDate(sell_in)) {
+        return decreaseByFour(quality);
+      }
+
+      return quality > 0 ? decreaseByTwo(quality) : 0;
     },
   },
 };
@@ -75,6 +84,7 @@ const increaseByTwo = add(2);
 const increaseByThree = add(3);
 const decreaseByOne = sub(1);
 const decreaseByTwo = sub(2);
+const decreaseByFour = sub(4);
 
 const calculateUpdatedQuality = ({ name, sell_in, quality }) => {
   if (quality === 0) return quality;
