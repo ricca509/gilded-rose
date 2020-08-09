@@ -34,14 +34,6 @@ Item.prototype.updateQuality = function () {
   return this;
 };
 
-const getSpecialItem = (itemName) => {
-  const specialItem = Object.entries(specialItems).find(([name]) =>
-    itemName.startsWith(name)
-  );
-
-  return specialItem ? specialItem[1] : undefined;
-};
-
 const specialItems = {
   "Aged Brie": {
     updateQuality: ({ quality }) => {
@@ -85,6 +77,14 @@ const specialItems = {
   },
 };
 
+const getSpecialItem = (itemName) => {
+  const specialItem = Object.entries(specialItems).find(([name]) =>
+    itemName.startsWith(name)
+  );
+
+  return specialItem ? specialItem[1] : undefined;
+};
+
 const isPastSellDate = (sellDate) => sellDate < 0;
 
 const add = (base) => (toNumber) => base + toNumber;
@@ -115,21 +115,17 @@ const calculateUpdatedQuality = ({ name, sell_in, quality }) => {
 const inn = (items = []) => {
   let itemsToSell = [...items];
 
-  const updateItem = () => {
-    const newItems = itemsToSell.map((item) => {
+  const updateItems = () => {
+    itemsToSell.forEach((item) => {
       item.updateSellIn();
       item.updateQuality();
-
-      return item;
     });
-
-    itemsToSell = [...newItems];
 
     return [...itemsToSell];
   };
 
   return {
-    updateItem,
+    updateItems,
   };
 };
 
